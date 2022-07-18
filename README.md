@@ -78,3 +78,95 @@ const Children = () => {
   return <>{inject.name}</>;
 };
 ```
+
+### 实现 vue 全局 bus
+
+### useMitt
+
+```js
+/**
+ * useMitt实现了跨组件的方法调用，通过发布订阅实现
+ */
+const App = () => {
+  const state = useReactve({ name: "" });
+  return (
+    <MittProvider>
+      <Children1></Children1>
+      <Children2></Children2>
+    </MittProvider>
+  );
+};
+
+/**
+ * mitt在react中发布事件
+ */
+const Children1 = () => {
+  const mitt = useMitt();
+
+  useEffect(() => {
+    mitt.emit("event"); // 调用事件
+  }, []);
+
+  return <>{inject.name}</>;
+};
+
+/**
+ *  mitt在react中注册事件
+ */
+const Children2 = () => {
+  const mitt = useMitt();
+
+  useEffect(() => {
+    mitt.on("event", () => {}); // 注册事件
+  }, []);
+
+  return <>{inject.name}</>;
+};
+```
+
+### 实现 vuex 双向绑定
+
+### reactx
+
+```js
+/**
+ * 包裹需要透传的组件
+ */
+const App = () => {
+  const { ReactxProvider } = useReactx();
+  return (
+    <ReactxProvider>
+      <Children1></Children1>
+      <Children2></Children2>
+    </ReactxProvider>
+  );
+};
+
+/**
+ * 具体addressBook的内容可以查看reactx modules下的申明信息
+ */
+const Children1 = () => {
+  const sotre: any = useStore();
+
+  return <>{JSON.stringify(sotre.addressBook?.state)}</>;
+};
+
+/**
+ *  通过方法调用改变action的内容
+ */
+const Children2 = () => {
+  const sotre: any = useStore();
+  return (
+    <>
+      <button
+        onClick={() => {
+          // 通过调用action方法可以直接改变state的内容
+          sotre.addressBook.actions.good();
+        }}
+      >
+        改变a组件的内容
+      </button>
+    </>
+  );
+};
+```
