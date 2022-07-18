@@ -12,16 +12,16 @@
 
 ## 实现 vue 双向绑定
 
-### useReactve
+### useReactive
 
 ```js
 /**
- * react调用setState就可以调用渲染功能，useReactve的核心原理是通过，proxy代理state
+ * react调用setState就可以调用渲染功能，useReactive的核心原理是通过，proxy代理state
  * 当你赋予值内容的时候会调用set方法调用setState函数重新刷新页面数据
  * 类似于vue3中的reactive，vue2中的data，数据具有双向绑定功能
  */
 const App = () => {
-    const state = useReactve({name: ''})
+    const state = useReactive({name: ''})
     // 只要button改变name的内容就会重新渲染页面
     return <>
       <span>{state.name}<span>
@@ -36,11 +36,11 @@ const App = () => {
 
 ```js
 /**
- * react要监听数据时否发生改变需要调用setState方法，很可惜的是如果的使用的是useReactve你
- * 将无法监听数据发生变化，这里useWatch()就是用来监听useReactve数据是否发生改变
+ * react要监听数据时否发生改变需要调用setState方法，很可惜的是如果的使用的是useReactive你
+ * 将无法监听数据发生变化，这里useWatch()就是用来监听useReactive数据是否发生改变
  */
 const App = () => {
-  const state = useReactve({name: ''})
+  const state = useReactive({name: ''})
 
    // 该功能实现vue中的watch功能
    useWatch(state, (oldVal,newVal)=>{},{
@@ -66,7 +66,7 @@ const App = () => {
  * 使用起来相当简便你无需考虑数据传递
  */
 const App = () => {
-  const state = useReactve({ name: "" });
+  const state = useReactive({ name: "" });
   return (
     <Provider value={state}>
       <Children></Children>
@@ -92,7 +92,7 @@ const Children = () => {
  * useMitt实现了跨组件的方法调用，通过发布订阅实现
  */
 const App = () => {
-  const state = useReactve({ name: "" });
+  const state = useReactive({ name: "" });
   return (
     <MittProvider>
       <Children1></Children1>
