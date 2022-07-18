@@ -33,7 +33,7 @@ const App = () => {
 ```js
 /**
  * react要监听数据时否发生改变需要调用setState方法，很可惜的是如果的使用的是useReactve你
- * 讲无法监听数据发生变化，这里useWatch()就是用来监听useReactve数据是否发生改变
+ * 将无法监听数据发生变化，这里useWatch()就是用来监听useReactve数据是否发生改变
  */
 const App = () => {
   const state = useReactve({name: ''})
