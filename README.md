@@ -2,13 +2,8 @@
 
 ## 前言
 
-``` js
-/**
- * 如果你是从vue转react，当你习惯了vue的双向绑定你是否会觉的react的当向数据流难以入手？虽然绝大部分功能都可以通过useEffect和useState来实现，
- * 但当场景足够复杂的时候你是否感觉react的* 单向数据流开发起来相当吃力。为了解决在复杂场景的开发难度，通过react的基础hooks实现vue的核心功能，让
- * 你开发复杂组件逻辑依然简单，不用在写复杂的回调极大增加了开发效率。
- */
-```
+### 你是是是从vue转react？当你习惯了vue的双向绑定你是否会觉的react的单向数据流难以入手？虽然绝大部分功能都可以通过useEffect和useState来实现，但当场景足够复杂的时候你是否感觉react的单向数据流开发起来相当吃力。为了解决react在复杂场景的开发难度，通过react的基础hooks实现vue的核心功能，让你开发复杂组件逻辑依然简单，不用在编写复杂的回调，极大提高了react开发效率。
+ 
 
 ## 实现 vue 双向绑定
 
@@ -36,7 +31,7 @@ const App = () => {
 
 ```js
 /**
- * react要监听数据时否发生改变需要调用setState方法，很可惜的是如果的使用的是useReactive你
+ * react要监听数据时否发生改变需要调用setState方法，很可惜的是如果你使用的是useReactiv你
  * 将无法监听数据发生变化，这里useWatch()就是用来监听useReactive数据是否发生改变
  */
 const App = () => {
@@ -92,7 +87,6 @@ const Children = () => {
  * useMitt实现了跨组件的方法调用，通过发布订阅实现
  */
 const App = () => {
-  const state = useReactive({ name: "" });
   return (
     <MittProvider>
       <Children1></Children1>
