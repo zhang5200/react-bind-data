@@ -4,6 +4,8 @@
 
 你是否从 vue 转 react？当你习惯了 vue 的双向绑定你是否会觉的 react 的单向数据流难以入手？虽然绝大部分功能都可以通过 useEffect 和 useState 来实现，但当场景足够复杂的时候你是否感觉 react 的单向数据流开发起来相当吃力。为了解决 react 在复杂场景的开发难度，通过 react 的基础 hooks 实现 vue 的核心功能，让你开发复杂组件逻辑依然简单，不用在编写复杂的回调，极大提高了 react 开发效率。
 
+[github 地址](https://github.com/zhang5200/react-bind-data 源码)
+
 ## 实现 vue 双向绑定
 
 ### useReactive
@@ -11,11 +13,21 @@
 ```js
 /**
  * react调用setState就可以调用渲染功能，useReactive的核心原理是通过，proxy代理state
- * 当你赋予值内容的时候会调用set方法调用setState函数重新刷新页面数据
- * 类似于vue3中的reactive，vue2中的data，数据具有双向绑定功能
+ * 当你赋予值内容的时候会调用set方法调用setState函数重新刷新页面数据类似于vue3中的reac
+ * tive，vue2中的data，数据具有双向绑定功能
  */
 const App = () => {
     const state = useReactive({name: ''})
+    /**
+     * 这里做了个特殊属性处理value，useReactive一旦申明你是无法直接替换整个对象，这个带来了
+     * 一定的问题，如果useReactive在子组件通过属性的方式获取，你将不得已重新申明一个变量接受
+     * 如申明useReactive({data: ''})，传递的属性改变data的内容而重新渲染子组件。为了让结果
+     * 更优雅你可以直接通过value赋予一个新对象, 这要你就能覆盖当前已经申明的对象
+     */
+    useEffect(() => {
+     state.value = { good:'' }
+    },[])
+
     // 只要button改变name的内容就会重新渲染页面
     return <>
       <span>{state.name}<span>
@@ -107,7 +119,7 @@ const App = () => {
  * mitt在react中发布事件
  */
 const Children1 = () => {
-   const { emitter } = useMitt();
+  const { emitter } = useMitt();
 
   useEffect(() => {
     emitter.emit("event"); // 调用事件

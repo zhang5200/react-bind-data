@@ -3,14 +3,14 @@
  * @Author: 张正兴
  * @LastEditors: 张正兴
  * @Date: 2022-07-08 08:35:10
- * @LastEditTime: 2022-07-20 07:20:21
+ * @LastEditTime: 2022-07-21 05:18:21
  */
 import { useEffect, useRef } from "react";
 import useCreation from "./useCreation";
 import useUpdate from "../useUpdate";
 
 const isObject = (value: unknown): value is Record<any, any> =>
-  value !== null && typeof value === 'object';
+  value !== null && typeof value === "object";
 
 // k:v 原对象:代理过的对象
 const proxyMap = new WeakMap();
@@ -64,6 +64,21 @@ function useReactive<S extends Record<string, any>>(initialState: S): S {
   const state = useCreation(() => {
     return observer(stateRef.current, () => {
       update();
+    });
+  }, []);
+
+  useEffect(() => {
+    Object.defineProperty(state, "value", {
+      enumerable: true,
+      configurable: true,
+      set(newValue) {
+        Object.keys(state).forEach((item) => {
+          Reflect.deleteProperty(state, item);
+        });
+        Object.keys(newValue).forEach((key) => {
+          (state as any)[key] = newValue[key];
+        });
+      },
     });
   }, []);
 
