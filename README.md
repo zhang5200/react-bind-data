@@ -22,7 +22,7 @@ const App = () => {
      * 这里做了个特殊属性处理value，useReactive一旦申明你是无法直接替换整个对象，这个带来了
      * 一定的问题，如果useReactive在子组件通过属性的方式获取，你将不得已重新申明一个变量接受
      * 如申明useReactive({data: ''})，传递的属性改变data的内容而重新渲染子组件。为了让结果
-     * 更优雅你可以直接通过value赋予一个新对象, 这要你就能覆盖当前已经申明的对象
+     * 更优雅你可以直接通过value赋予一个新对象，这样你就能覆盖当前已经申明的对象
      */
     useEffect(() => {
      state.value = { good:'' }
@@ -70,7 +70,7 @@ const App = () => {
 
 ```js
 import { useReactive, provide } from "react-double-bind";
-const { ProviderContext, useInject } = provide;
+const { Provider, useInject } = provide;
 
 /**
  * 通过Provides包裹，state数据会下传给所有的子组件，无需一级一级传递数据
@@ -79,9 +79,9 @@ const { ProviderContext, useInject } = provide;
 const App = () => {
   const state = useReactive({ name: "" });
   return (
-    <ProviderContext value={state}>
+    <Provider value={state}>
       <Children></Children>
-    </ProviderContext>
+    </Provider>
   );
 };
 
