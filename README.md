@@ -2,8 +2,7 @@
 
 ## 前言
 
-### 你是是是从vue转react？当你习惯了vue的双向绑定你是否会觉的react的单向数据流难以入手？虽然绝大部分功能都可以通过useEffect和useState来实现，但当场景足够复杂的时候你是否感觉react的单向数据流开发起来相当吃力。为了解决react在复杂场景的开发难度，通过react的基础hooks实现vue的核心功能，让你开发复杂组件逻辑依然简单，不用在编写复杂的回调，极大提高了react开发效率。
- 
+你是否从 vue 转 react？当你习惯了 vue 的双向绑定你是否会觉的 react 的单向数据流难以入手？虽然绝大部分功能都可以通过 useEffect 和 useState 来实现，但当场景足够复杂的时候你是否感觉 react 的单向数据流开发起来相当吃力。为了解决 react 在复杂场景的开发难度，通过 react 的基础 hooks 实现 vue 的核心功能，让你开发复杂组件逻辑依然简单，不用在编写复杂的回调，极大提高了 react 开发效率。
 
 ## 实现 vue 双向绑定
 
@@ -34,6 +33,8 @@ const App = () => {
  * react要监听数据时否发生改变需要调用setState方法，很可惜的是如果你使用的是useReactiv你
  * 将无法监听数据发生变化，这里useWatch()就是用来监听useReactive数据是否发生改变
  */
+import { useReactive } from 'react-double-bind';
+
 const App = () => {
   const state = useReactive({name: ''})
 
@@ -56,6 +57,9 @@ const App = () => {
 ### useProvide
 
 ```js
+import { useReactive, provide } from "react-double-bind";
+const { ProviderContext, useInject } = provide;
+
 /**
  * 通过Provides包裹，state数据会下传给所有的子组件，无需一级一级传递数据
  * 使用起来相当简便你无需考虑数据传递
@@ -63,9 +67,9 @@ const App = () => {
 const App = () => {
   const state = useReactive({ name: "" });
   return (
-    <Provider value={state}>
+    <ProviderContext value={state}>
       <Children></Children>
-    </Provider>
+    </ProviderContext>
   );
 };
 
@@ -78,13 +82,17 @@ const Children = () => {
 };
 ```
 
-### 实现 vue 全局 bus
+## 实现 vue 全局 bus
 
 ### useMitt
 
 ```js
+import { useReactive, provide } from "react-double-bind";
+const { useMitt, MittProvider } = mitt;
+
 /**
- * useMitt实现了跨组件的方法调用，通过发布订阅实现
+ * useMitt实现了跨组件的方法调用，通过发布订阅实现，内部做了特殊处理当页面
+ * 被卸载的时候会自动清除emitter.on事件，不会重复注册
  */
 const App = () => {
   return (
@@ -99,10 +107,10 @@ const App = () => {
  * mitt在react中发布事件
  */
 const Children1 = () => {
-  const mitt = useMitt();
+   const { emitter } = useMitt();
 
   useEffect(() => {
-    mitt.emit("event"); // 调用事件
+    emitter.emit("event"); // 调用事件
   }, []);
 
   return <>{inject.name}</>;
@@ -112,59 +120,12 @@ const Children1 = () => {
  *  mitt在react中注册事件
  */
 const Children2 = () => {
-  const mitt = useMitt();
+  const { emitter } = useMitt();
 
   useEffect(() => {
-    mitt.on("event", () => {}); // 注册事件
+    emitter.on("event", () => {}); // 注册事件
   }, []);
 
   return <>{inject.name}</>;
-};
-```
-
-### 实现 vuex 双向绑定
-
-### reactx
-
-```js
-/**
- * 包裹需要透传的组件
- */
-const App = () => {
-  const { ReactxProvider } = useReactx();
-  return (
-    <ReactxProvider>
-      <Children1></Children1>
-      <Children2></Children2>
-    </ReactxProvider>
-  );
-};
-
-/**
- * 具体addressBook的内容可以查看reactx modules下的申明信息
- */
-const Children1 = () => {
-  const sotre: any = useStore();
-
-  return <>{JSON.stringify(sotre.addressBook?.state)}</>;
-};
-
-/**
- *  通过方法调用改变action的内容
- */
-const Children2 = () => {
-  const sotre: any = useStore();
-  return (
-    <>
-      <button
-        onClick={() => {
-          // 通过调用action方法可以直接改变state的内容
-          sotre.addressBook.actions.good();
-        }}
-      >
-        改变a组件的内容
-      </button>
-    </>
-  );
 };
 ```
