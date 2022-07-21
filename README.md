@@ -11,6 +11,7 @@
 ### useReactive
 
 ```js
+import { useReactive } from 'react-db-bind';
 /**
  * react调用setState就可以调用渲染功能，useReactive的核心原理是通过，proxy代理state
  * 当你赋予值内容的时候会调用set方法调用setState函数重新刷新页面数据类似于vue3中的reac
@@ -45,7 +46,7 @@ const App = () => {
  * react要监听数据时否发生改变需要调用setState方法，很可惜的是如果你使用的是useReactiv你
  * 将无法监听数据发生变化，这里useWatch()就是用来监听useReactive数据是否发生改变
  */
-import { useReactive } from 'react-double-bind';
+import { useReactive } from 'react-db-bind';
 
 const App = () => {
   const state = useReactive({name: ''})
@@ -69,7 +70,7 @@ const App = () => {
 ### useProvide
 
 ```js
-import { useReactive, provide } from "react-double-bind";
+import { useReactive, provide } from "react-db-bind";
 const { Provider, useInject } = provide;
 
 /**
@@ -99,7 +100,7 @@ const Children = () => {
 ### useMitt
 
 ```js
-import { useReactive, provide } from "react-double-bind";
+import { useReactive, provide } from "react-db-bind";
 const { useMitt, MittProvider } = mitt;
 
 /**

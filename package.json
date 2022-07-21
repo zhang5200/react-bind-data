@@ -1,6 +1,6 @@
 {
   "name": "react-db-bind",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "双向绑定库",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -76,6 +76,7 @@
   "dependencies": {
     "braft-editor": "^2.3.9",
     "lodash": "^4.17.21",
+    "mathjs": "^10.6.4",
     "mitt": "^3.0.0",
     "react-highlight-words": "^0.18.0",
     "react-infinite-scroll-component": "^6.1.0",

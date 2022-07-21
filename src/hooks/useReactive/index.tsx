@@ -3,7 +3,7 @@
  * @Author: 张正兴
  * @LastEditors: 张正兴
  * @Date: 2022-07-08 08:35:10
- * @LastEditTime: 2022-07-21 05:18:21
+ * @LastEditTime: 2022-07-22 07:58:33
  */
 import { useEffect, useRef } from "react";
 import useCreation from "./useCreation";
@@ -69,14 +69,15 @@ function useReactive<S extends Record<string, any>>(initialState: S): S {
 
   useEffect(() => {
     Object.defineProperty(state, "value", {
-      enumerable: true,
-      configurable: true,
-      set(newValue) {
-        Object.keys(state).forEach((item) => {
-          Reflect.deleteProperty(state, item);
-        });
-        Object.keys(newValue).forEach((key) => {
-          (state as any)[key] = newValue[key];
+      set(newValue) {   
+        // 异步移除
+        setTimeout(() => {
+          Object.keys(state).forEach((item) => {
+            Reflect.deleteProperty(state, item);
+          });
+          Object.keys(newValue).forEach((key) => {
+            (state as any)[key] = newValue[key];
+          });
         });
       },
     });
