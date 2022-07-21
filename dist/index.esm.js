@@ -92,12 +92,12 @@ const useMitt = () => {
 var useMitt$1 = { MittProvider, useMitt };
 
 const Provide = React.createContext({});
-const ProviderContext = (props) => {
+const Provider = (props) => {
     const { children, value } = props;
     return React.createElement(Provide.Provider, { value: value }, children);
 };
 const useInject = () => useContext(Provide);
-var useProvide = { ProviderContext, useInject };
+var useProvide = { Provider, useInject };
 
 function depsAreSame(oldDeps, deps) {
     if (oldDeps === deps)
@@ -127,7 +127,7 @@ const useUpdate = () => {
     return useCallback(() => setState({}), []);
 };
 
-const isObject = (value) => value !== null && typeof value === 'object';
+const isObject = (value) => value !== null && typeof value === "object";
 const proxyMap = new WeakMap();
 const rawMap = new WeakMap();
 function observer(initialVal, cb) {
@@ -164,6 +164,20 @@ function useReactive(initialState) {
     const state = useCreation(() => {
         return observer(stateRef.current, () => {
             update();
+        });
+    }, []);
+    useEffect(() => {
+        Object.defineProperty(state, "value", {
+            enumerable: true,
+            configurable: true,
+            set(newValue) {
+                Object.keys(state).forEach((item) => {
+                    Reflect.deleteProperty(state, item);
+                });
+                Object.keys(newValue).forEach((key) => {
+                    state[key] = newValue[key];
+                });
+            },
         });
     }, []);
     return state;
