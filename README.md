@@ -18,7 +18,10 @@ import { useReactive } from 'react-db-bind';
  * tive，vue2中的data，数据具有双向绑定功能
  */
 const App = () => {
-    const state = useReactive({name: ''})
+    /**
+     * 第二个参数true默认支持通过value覆盖当前已经有的内容
+     */
+    const state = useReactive({name: ''}, true)
     /**
      * 这里做了个特殊属性处理value，useReactive一旦申明你是无法直接替换整个对象，这个带来了
      * 一定的问题，如果useReactive在子组件通过属性的方式获取，你将不得已重新申明一个变量接受
