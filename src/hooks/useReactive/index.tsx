@@ -3,7 +3,7 @@
  * @Author: 张正兴
  * @LastEditors: 张正兴
  * @Date: 2022-07-08 08:35:10
- * @LastEditTime: 2022-07-22 07:58:33
+ * @LastEditTime: 2022-07-22 10:16:25
  */
 import { useEffect, useRef } from "react";
 import useCreation from "./useCreation";
@@ -57,29 +57,34 @@ function observer<T extends Record<string, any>>(
   return proxy;
 }
 
-function useReactive<S extends Record<string, any>>(initialState: S): S {
+function useReactive<S extends Record<string, any>>(
+  initialState: S,
+  value?: boolean // 是否支持直接通过value赋值
+): S {
   const update = useUpdate();
   const stateRef = useRef<S>(initialState);
 
   const state = useCreation(() => {
     return observer(stateRef.current, () => {
-      update();
-    });
-  }, []);
-
-  useEffect(() => {
-    Object.defineProperty(state, "value", {
-      set(newValue) {   
-        // 异步移除
+      if (value) {
+        // 异步更新
         setTimeout(() => {
-          Object.keys(state).forEach((item) => {
-            Reflect.deleteProperty(state, item);
-          });
-          Object.keys(newValue).forEach((key) => {
-            (state as any)[key] = newValue[key];
-          });
+          if (Object.keys(state).some((item) => item == "value")) {
+            const newObj = state.value;
+            Object.keys(state).forEach((item) => {
+              Reflect.deleteProperty(state, item);
+            });
+            Object.keys(newObj).forEach((key) => {
+              (state as any)[key] = newObj[key];
+            });
+            update();
+          } else {
+            update();
+          }
         });
-      },
+      } else {
+        update();
+      }
     });
   }, []);
 
