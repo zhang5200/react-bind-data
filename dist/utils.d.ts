@@ -5,6 +5,7 @@ export declare const numAdd: (start: string | number, end: string | number) => s
 export declare const numSub: (start: string | number, end: string | number) => string;
 export declare const numMul: (start: string | number, end: string | number) => string;
 export declare const numDiv: (start: string | number, end: string | number) => string;
+export declare const sumAdd: (array: any[]) => any;
 declare const _default: {
     getGuid: () => string;
     toTree: (data: any, id: any, pid: any) => any;
@@ -14,6 +15,7 @@ declare const _default: {
         numSub: (start: string | number, end: string | number) => string;
         numMul: (start: string | number, end: string | number) => string;
         numDiv: (start: string | number, end: string | number) => string;
+        sumAdd: (array: any[]) => any;
     };
 };
 export default _default;

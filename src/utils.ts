@@ -3,7 +3,7 @@
  * @Author: 张正兴
  * @LastEditors: 张正兴
  * @Date: 2022-07-20 18:42:11
- * @LastEditTime: 2022-07-22 07:42:27
+ * @LastEditTime: 2022-07-26 07:02:29
  */
 import { add, bignumber, divide, format, multiply, subtract } from "mathjs";
 
@@ -81,6 +81,15 @@ export const numDiv = (start: string | number, end: string | number) => {
   });
 };
 
+// 相加汇总
+export const sumAdd = (array: any[]) => {
+  const sum = array?.reduce((a: any, b: any) => {
+    let c = numAdd(a, b);
+    return c;
+  }, 0);
+  return sumAdd;
+};
+
 export default {
   getGuid,
   toTree,
@@ -90,5 +99,6 @@ export default {
     numSub,
     numMul,
     numDiv,
+    sumAdd,
   },
 };

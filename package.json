@@ -78,6 +78,8 @@
     "lodash": "^4.17.21",
     "mathjs": "^10.6.4",
     "mitt": "^3.0.0",
+    "mobx": "^6.6.1",
+    "mobx-react": "^7.5.2",
     "react-highlight-words": "^0.18.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-split-pane": "^0.1.92",
