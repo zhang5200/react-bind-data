@@ -145,3 +145,81 @@ const Children2 = () => {
   return <>{inject.name}</>;
 };
 ```
+
+## 双向绑定plush
+
+### useLocalStore
+``` js
+import { store } from "react-db-bind";
+const { observer, useLocalStore } = store;
+/**
+ * 该双向绑定是基于mobx的双向绑定进行封装，使用的时候会比useReactive更加方便
+ */
+const App = () => {
+  /**
+   * 与useState使用方式相同，区别在于直接修改state内容会渲染页面数据（数据双向绑定），同时多出了setState方法会直接改变state的内容
+   * 如果用useEffect监听则会触发useEffect方法
+   */
+  const [state, setState] = useLocalStore({ name: "李四" });
+  return (
+    <div>
+      {JSON.stringify(good)}
+      <button
+        onClick={() => {
+          state.name = Math.random() ;
+        }}
+      >
+        测试响应
+      </button>
+    </div>
+  );
+};
+export default observer(App);
+
+/**
+ * 全局共享state
+ */
+const App = () => {
+  /**
+   * useLocalStore多出了第二个参数标记如果加入参数当前staet全局共享
+   * 这里用user做了标记
+   */
+  const [state, setState] = useLocalStore({ name: "李四" }, 'user');
+  
+  return (
+    <div>
+      <button
+        onClick={() => {
+          state.name = Math.random() ;
+        }}
+      >
+        测试响应
+      </button>
+    </div>
+  );
+};
+export default observer(App);
+
+const Children = () => {
+  /**
+   * 在任意的组件中，只要通过user标记就能找到对应的组件state状态
+   */
+  const [state, setState] = useLocalStore(null, 'user');
+  return (
+    <div>
+      <button
+        onClick={() => {
+          // 当前的修改会触发全局任意一处有使用useLocalStore渲染
+          state.name = Math.random() ;
+        }}
+      >
+        测试响应
+      </button>
+    </div>
+  );
+};
+
+
+
+```
+
