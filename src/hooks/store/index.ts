@@ -1,9 +1,9 @@
 /*
- * @Description: 设置响应式
+ * @Description:
  * @Author: 张正兴
  * @LastEditors: 张正兴
  * @Date: 2022-07-24 08:27:34
- * @LastEditTime: 2022-07-28 08:47:32
+ * @LastEditTime: 2022-07-28 15:19:06
  */
 import { useLocalObservable, observer } from "mobx-react";
 import { Store } from "./store";
@@ -36,6 +36,6 @@ const useLocalStore = (initData?: any, name?: string) => {
 };
 
 export default {
-  useLocalStore,
   observer,
+  useLocalStore,
 };

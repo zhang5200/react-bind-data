@@ -3,7 +3,7 @@
  * @Author: 张正兴
  * @LastEditors: 张正兴
  * @Date: 2022-07-25 08:17:07
- * @LastEditTime: 2022-07-28 08:12:58
+ * @LastEditTime: 2022-07-28 15:19:13
  */
 import { action, configure, makeObservable, observable} from "mobx";
 
@@ -11,7 +11,7 @@ import { action, configure, makeObservable, observable} from "mobx";
 configure({ enforceActions: "never"}) 
 
 export class Store {
-  value = {};
+  value = null;
 
   constructor(initvalue?: any) {
     makeObservable(this, {
