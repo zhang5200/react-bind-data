@@ -3,7 +3,7 @@
  * @Author: 张正兴
  * @LastEditors: 张正兴
  * @Date: 2022-07-25 08:17:07
- * @LastEditTime: 2022-07-27 23:43:06
+ * @LastEditTime: 2022-07-28 08:12:58
  */
 import { action, configure, makeObservable, observable} from "mobx";
 
@@ -11,7 +11,7 @@ import { action, configure, makeObservable, observable} from "mobx";
 configure({ enforceActions: "never"}) 
 
 export class Store {
-  value = null;
+  value = {};
 
   constructor(initvalue?: any) {
     makeObservable(this, {
@@ -25,7 +25,6 @@ export class Store {
 
   // 替换对象
   setValue(v: any) {
-    console.log("触发action");
     this.value = v;
   }
 }
