@@ -25137,19 +25137,27 @@ class Store {
         }
     }
     setValue(v) {
-        console.log("触发action");
         this.value = v;
     }
 }
 
 const storeData = new Map();
-const useLocalStore = (initData, name) => {
+function useLocalStore(initData, name) {
+    if (typeof initData == "string" && name == null) {
+        if (initData.startsWith("state:")) {
+            name = initData;
+            initData = null;
+        }
+    }
     const localStore = useLocalObservable(() => {
         if (!name) {
             return new Store(initData);
         }
         if (storeData.has(name)) {
             const getStore = storeData.get(name);
+            if (initData != null) {
+                getStore.setValue(initData);
+            }
             return getStore;
         }
         else {
@@ -25164,10 +25172,10 @@ const useLocalStore = (initData, name) => {
             localStore.setValue(item);
         },
     ];
-};
+}
 var index = {
-    useLocalStore,
     observer: observer$2,
+    useLocalStore,
 };
 
 export { useMitt$1 as mitt, useProvide as provide, index as store, useReactive, useWatch, utils };

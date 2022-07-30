@@ -146,7 +146,7 @@ const Children2 = () => {
 };
 ```
 
-## 双向绑定plush
+## 双向绑定综合hooks
 
 ### useLocalStore
 ``` js
