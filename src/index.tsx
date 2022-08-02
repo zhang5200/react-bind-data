@@ -19,3 +19,6 @@ export { default as useReactive } from "./hooks/useReactive";
 export { default as useWatch } from "./hooks/useWatch";
 
 export { default as store } from "./hooks/store";
+
+// 防抖
+export { default as useAntiShake } from "./hooks/useAntiShake";
