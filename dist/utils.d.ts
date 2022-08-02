@@ -10,6 +10,7 @@ declare const _default: {
     getGuid: () => string;
     toTree: (data: any, id: any, pid: any) => any;
     objMerge: (source: any, target: any) => void;
+    timeout: (time: number) => Promise<unknown>;
     calculate: {
         numAdd: (start: string | number, end: string | number) => string;
         numSub: (start: string | number, end: string | number) => string;

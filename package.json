@@ -1,7 +1,7 @@
 {
   "name": "react-db-bind",
-  "version": "1.1.8",
-  "description": "react双向绑定",
+  "version": "1.2.4",
+  "description": "react-tools",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

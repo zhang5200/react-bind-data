@@ -17944,6 +17944,13 @@ const objMerge = (source, target) => {
         source[item] = target[item];
     });
 };
+const timeout = (time) => {
+    return new Promise((resolt, reject) => {
+        setTimeout(() => {
+            resolt(null);
+        }, time);
+    });
+};
 const numAdd = (start, end) => {
     return format$3(add$1(bignumber(start), bignumber(end)), {
         notation: "fixed",
@@ -17975,6 +17982,7 @@ var utils = {
     getGuid,
     toTree,
     objMerge,
+    timeout,
     calculate: {
         numAdd,
         numSub,
@@ -18159,7 +18167,7 @@ const comparison = (oldVal, newVal) => {
         return false;
     }
 };
-function useWatch(state, callBack, params) {
+function useWatch(state, callBack, params = { immediate: true, deep: true }) {
     const storage = useRef([]);
     useEffect(() => {
         const oldContent = storage.current[storage.current.length - 1];

@@ -3,7 +3,7 @@
  * @Author: 张正兴
  * @LastEditors: 张正兴
  * @Date: 2022-07-11 00:24:23
- * @LastEditTime: 2022-07-16 17:02:10
+ * @LastEditTime: 2022-08-02 08:19:15
  */
 import _ from "lodash";
 import { useEffect, useRef } from "react";
@@ -42,11 +42,11 @@ const comparison = (oldVal: any, newVal: any) => {
 function useWatch<T>(
   state: T,
   callBack: (start?: T, end?: T) => void,
-  params?: {
+  params: {
     param?: string; // 监听单个属性
     immediate?: boolean; // true第一次触发回调
     deep?: boolean; // 是否深入监听
-  }
+  } = { immediate: true, deep: true }
 ) {
   // 储存历史记录
   const storage = useRef<T[]>([]);

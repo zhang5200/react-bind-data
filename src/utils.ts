@@ -3,7 +3,7 @@
  * @Author: 张正兴
  * @LastEditors: 张正兴
  * @Date: 2022-07-20 18:42:11
- * @LastEditTime: 2022-07-26 07:02:29
+ * @LastEditTime: 2022-07-31 16:20:27
  */
 import { add, bignumber, divide, format, multiply, subtract } from "mathjs";
 
@@ -53,6 +53,17 @@ export const objMerge = (source: any, target: any) => {
   });
 };
 
+/**
+ *  setTimeout
+ */
+const timeout = (time: number) => {
+  return new Promise((resolt, reject) => {
+    setTimeout(() => {
+      resolt(null);
+    }, time);
+  });
+};
+
 // 加
 export const numAdd = (start: string | number, end: string | number) => {
   return format(add(bignumber(start), bignumber(end)), {
@@ -94,6 +105,7 @@ export default {
   getGuid,
   toTree,
   objMerge,
+  timeout,
   calculate: {
     numAdd,
     numSub,

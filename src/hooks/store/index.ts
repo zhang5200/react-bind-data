@@ -3,7 +3,7 @@
  * @Author: 张正兴
  * @LastEditors: 张正兴
  * @Date: 2022-07-24 08:27:34
- * @LastEditTime: 2022-07-30 09:34:30
+ * @LastEditTime: 2022-07-30 17:15:28
  */
 import { useLocalObservable, observer } from "mobx-react";
 import { Store } from "./store";
@@ -12,9 +12,9 @@ const storeData = new Map();
 
 // 用户信息
 function useLocalStore<T>(
-  initData?: T,
+  initData?: T | string,
   name?: string
-): [T, (item: any) => void] {
+): [T & { [name: string]: any }, (item: any) => void] {
   if (typeof initData == "string" && name == null) {
     if (initData.startsWith("state:")) {
       name = initData;

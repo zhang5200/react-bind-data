@@ -6,9 +6,7 @@
 
 [github 地址](https://github.com/zhang5200/react-bind-data 源码)
 
-## 实现 vue 双向绑定
-
-### useReactive
+## useReactive
 
 ```js
 import { useReactive } from 'react-db-bind';
@@ -40,9 +38,7 @@ const App = () => {
 }
 ```
 
-## 实现 vue 数据监听
-
-### useWatch
+## useWatch
 
 ```js
 /**
@@ -68,9 +64,7 @@ const App = () => {
 }
 ```
 
-## 实现 vue 数据透传 provide 和 inject
-
-### useProvide
+## useProvide
 
 ```js
 import { useReactive, provide } from "react-db-bind";
@@ -98,9 +92,7 @@ const Children = () => {
 };
 ```
 
-## 实现 vue 全局 bus
-
-### useMitt
+## useMitt
 
 ```js
 import { useReactive, provide } from "react-db-bind";
@@ -218,8 +210,6 @@ const Children = () => {
     </div>
   );
 };
-
-
 
 ```
 
